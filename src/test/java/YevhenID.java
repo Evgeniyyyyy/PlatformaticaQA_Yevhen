@@ -1,33 +1,26 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class YevhenID {
-    @BeforeClass
-    public void beforeClass() {
-        WebDriverManager.chromedriver().setup();
-    }
-
+public class YevhenID extends BaseTest {
 
     @Test
     public void test() throws InterruptedException {
-        //    System.setProperty("webdriver.chrome.driver", "C:/Users/ybozhenko/Downloads/chromedriver.exe");
-
-        WebDriver driver = new ChromeDriver();
         try {
-            driver.get("https://google.com/");
-            //   Thread.sleep(1000);
+            getDriver().get("https://google.com/");
 
-            WebElement input = driver.findElement(By.name("Search Google or type a URL"));
+            WebElement input = getDriver().findElement(By.name("Search Google or type a URL"));
             input.sendKeys("123\n");
+            //!!! очень полезная фича поиска элемента
+           /* WebDriverWait wait = new WebDriverWait(getDriver(), 20) {
+            };
+            WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated
+                    (By.name("Search Google or type a URL")));*/
         } finally {
 
-            driver.quit();
         }
     }
 }
