@@ -1,4 +1,4 @@
-import base.BaseTest;
+import base.BaseTestOld;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class GroupJavaBearsTest extends BaseTest {
+public class GroupJavaBearsTest extends BaseTestOld {
 
     @Test
     public void reviewTest() throws InterruptedException {

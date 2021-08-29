@@ -1,11 +1,9 @@
-import base.BaseTest;
+import base.BaseTestOld;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-public class YevhenID extends BaseTest {
+public class YevhenID extends BaseTestOld {
 
     @Test
     public void test() throws InterruptedException {
