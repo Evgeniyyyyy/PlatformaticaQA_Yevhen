@@ -9,8 +9,13 @@ import org.testng.annotations.BeforeMethod;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class BaseTestOld {
+public abstract class BaseTest {
     private WebDriver driver;
+    private static boolean remoteWebDriver = false;
+
+    public static boolean isRemoteWebDriver() {
+        return remoteWebDriver;
+    }
 
     @BeforeClass
     public void beforeClass() {

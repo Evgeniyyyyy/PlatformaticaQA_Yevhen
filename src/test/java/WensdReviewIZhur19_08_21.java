@@ -1,10 +1,10 @@
-import base.BaseTestOld;
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class WensdReviewIZhur19_08_21 extends BaseTestOld {
+public class WensdReviewIZhur19_08_21 extends BaseTest {
     // Thread.sleep();
     //Implicit - неявный
     //Explicit - явный
