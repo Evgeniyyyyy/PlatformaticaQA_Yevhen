@@ -32,9 +32,8 @@ public class ProjectUtils {
         scroll(driver, element);
         element.click();
     }
-
-
-    public static void get(WebDriver driver) {
+    public static void get(WebDriver driver){
+        driver.get("https://ref2.eteam.work/");
     }
 
 

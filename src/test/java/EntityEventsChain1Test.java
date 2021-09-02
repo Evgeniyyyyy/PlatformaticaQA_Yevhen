@@ -12,9 +12,9 @@ import utils.ProjectUtils;
 public class EntityEventsChain1Test extends BaseTest {
 
     @Test
-    public void test() throws InterruptedException {
+    public void testCreateNewRecord() {
         WebDriverWait wait = new WebDriverWait(getDriver(), 20);
-        getDriver().get("https://ref2.eteam.work/");
+        ProjectUtils.get(getDriver());
         WebElement GetLoginButton = getDriver().findElement(By.xpath
                 ("//input[@placeholder='Login name...']"));
         GetLoginButton.sendKeys("tester72@tester.test");
@@ -27,7 +27,7 @@ public class EntityEventsChain1Test extends BaseTest {
         ProjectUtils.reset(getDriver());
 
         getDriver().get("https://ref2.eteam.work/index.php?action=action_list&entity_id=61&mod=2");
-        Thread.sleep(3000);
+
         WebElement ButtonNewChain = getDriver().findElement(By.xpath
                 ("//i[text()='create_new_folder']"));
         wait.until(ExpectedConditions.elementToBeClickable(ButtonNewChain)).click();
