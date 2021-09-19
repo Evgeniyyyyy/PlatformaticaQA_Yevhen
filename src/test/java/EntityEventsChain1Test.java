@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EntityEventsChain1Test extends BaseTest {
-    WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+
     private static final By EVENTS_CHAIN1_MENU = By.xpath("//p[contains(.,'Events Chain 1')]");
     private static final By CREATE_NEW_FOLDER = By.xpath ("//i[text()='create_new_folder']");
     private static final By EXIST_RECORDS = By.xpath("//table[@id='pa-all-entities-table']/tbody/tr");
@@ -22,6 +22,7 @@ public class EntityEventsChain1Test extends BaseTest {
     private static final By F_10_FIELD = By.id("f10");
 
     private void clickMenu(){
+        WebDriverWait wait = new WebDriverWait(getDriver(), 20);
         ProjectUtils.scrollClick(getDriver(), getDriver().findElement(EVENTS_CHAIN1_MENU));
         wait.until(ExpectedConditions.elementToBeClickable(getDriver().findElement(CREATE_NEW_FOLDER)));
     }
@@ -32,19 +33,18 @@ public class EntityEventsChain1Test extends BaseTest {
         getDriver().findElement(BUTTON_SAVE_CHAIN_1).click();
     }
     private void inputF1Value(String f1Value){
+        WebDriverWait wait = new WebDriverWait(getDriver(), 20);
         getDriver().findElement(F_1_FIELD)
                 .sendKeys(f1Value);
         wait.until(ExpectedConditions.attributeToBeNotEmpty(getDriver().findElement(F_10_FIELD), "value"));
-
     }
+
     private List<WebElement> getRecords(){
         return getDriver().findElements(EXIST_RECORDS);
     }
-    
     private List<WebElement> getCells(){
         return getDriver().findElements(EXIST_CELLS);
     }
-
     private List<String> getRowValues(List<WebElement> cellsActual) {
         List<String> actualValues = new ArrayList<>();
              for (WebElement cell : cellsActual) {
@@ -52,14 +52,15 @@ public class EntityEventsChain1Test extends BaseTest {
         }
         return actualValues;
     }
+    private String getIconAttributeClass(){
+        return getDriver().findElement(CHECK_BOX).getAttribute("class");
+    }
 
 
     @Test
     public void testCreateNewRecord() {
         final String f1Value = "1";
         final List<String> expectedValues = Arrays.asList("1", "2", "4", "8", "16", "32", "64", "128", "256", "512");
-
-
 
         ProjectUtils.get(getDriver());
         WebElement GetLoginButton = getDriver().findElement(By.xpath
@@ -71,32 +72,19 @@ public class EntityEventsChain1Test extends BaseTest {
         WebElement GetSignInButton = getDriver().findElement(By.xpath
                 ("//button[normalize-space()='Sign in']"));
         GetSignInButton.click();
+
         ProjectUtils.reset(getDriver());
 
-        WebElement eventsChain1 = getDriver().findElement(EVENTS_CHAIN1_MENU);
-        ProjectUtils.scrollClick(getDriver(), eventsChain1);
+        clickMenu();
+        clickCreateNewFolder();
+        inputF1Value(f1Value);
+        clickSaveButton();
 
-        WebElement ButtonNewChain = getDriver().findElement(CREATE_NEW_FOLDER);
-        wait.until(ExpectedConditions.elementToBeClickable(ButtonNewChain)).click();
-
-        WebElement AddNewChain = getDriver().findElement(F_1_FIELD);
-        AddNewChain.sendKeys(f1Value);
-        wait.until(ExpectedConditions.attributeToBeNotEmpty(getDriver().findElement(F_10_FIELD),
-                "value" ));
-    
-        WebElement ButtonSaveChain = getDriver().findElement(BUTTON_SAVE_CHAIN_1);
-        ProjectUtils.scrollClick(getDriver(), ButtonSaveChain);
-
-        List<WebElement> records = getDriver().findElements(EXIST_RECORDS);
-        List<WebElement> cellsActual = getDriver().findElements(EXIST_CELLS);
-
-
-
-
-
-        Assert.assertEquals(records.size(), 1);
-        Assert.assertEquals(getRowValues(cellsActual), expectedValues);
-        Assert.assertTrue(getDriver().findElement(CHECK_BOX).isDisplayed());
+        Assert.assertEquals(getCells().size(), expectedValues.size());
+     //   Assert.assertEquals(getRecords().size(), 1);
+        Assert.assertEquals(getRowValues(getCells()), expectedValues);
+     //   Assert.assertTrue(getDriver().findElement(CHECK_BOX).isDisplayed());
+        Assert.assertEquals(getIconAttributeClass(), "fa fa-check-square-o");
 
 
 
